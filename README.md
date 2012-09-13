@@ -14,3 +14,7 @@ TODO
 ---------
 - Demo application with sockets and buffers.
 - Demo Javascript code as a HTML5 page.
+
+License
+---------
+MIT, see LICENSE file.
