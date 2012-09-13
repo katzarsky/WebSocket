@@ -3,6 +3,7 @@ WebSocket
 
 WebSocket codec in C++. Implements *only* RFC6455.
 Robust one-class parser implementation (handshake and frames). The library *does not* control sockets, it works with buffers.
+This gives you freedom to implement your I/O whatever way you like.
 
 WebSocket class overview
 ---------
