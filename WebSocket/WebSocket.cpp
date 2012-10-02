@@ -169,8 +169,8 @@ int WebSocket::makeFrame(WebSocketFrameType frame_type, unsigned char* msg, int 
 	}
 	else if(size<=65535) {
 		buffer[pos++] = 126; //16 bit length
+		buffer[pos++] = (size >> 8) & 0xFF; // rightmost first
 		buffer[pos++] = size & 0xFF;
-		buffer[pos++] = (size >> 8) & 0xFF;
 	}
 	memcpy((void*)(buffer+pos), msg, size);
 	return (size+pos);
