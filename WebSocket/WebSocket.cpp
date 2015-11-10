@@ -164,19 +164,29 @@ int WebSocket::makeFrame(WebSocketFrameType frame_type, unsigned char* msg, int 
 	int size = msg_length; 
 	buffer[pos++] = (unsigned char)frame_type; // text frame
 
-	if(size<=125) {
+	if(size <= 125) {
 		buffer[pos++] = size;
 	}
-	else if(size<=65535) {
-		buffer[pos++] = 126; //16 bit length
-		buffer[pos++] = (size >> 8) & 0xFF; // rightmost first
+	else if(size <= 65535) {
+		buffer[pos++] = 126; //16 bit length follows
+		
+		buffer[pos++] = (size >> 8) & 0xFF; // leftmost first
 		buffer[pos++] = size & 0xFF;
 	}
-	else { // >2^16-1
-		buffer[pos++] = 127; //64 bit length
+	else { // >2^16-1 (65535)
+		buffer[pos++] = 127; //64 bit length follows
 		
-		//TODO: write 8 bytes length
-		pos+=8;
+		// write 8 bytes length (significant first)
+		
+		// since msg_length is int it can be no longer than 4 bytes = 2^32-1
+		// padd zeroes for the first 4 bytes
+		for(int i=3; i>=0; i--) {
+			buffer[pos++] = 0;
+		}
+		// write the actual 32bit msg_length in the next 4 bytes
+		for(int i=3; i>=0; i--) {
+			buffer[pos++] = ((size >> 8*i) & 0xFF);
+		}
 	}
 	memcpy((void*)(buffer+pos), msg, size);
 	return (size+pos);
