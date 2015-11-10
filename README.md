@@ -12,6 +12,10 @@ WebSocket class overview
 - **makeFrame()** makes TEXT,BINARY,PING,PONG frame from message-data given in buffer and writes it into output-buffer.
 - **getFrame()** tries to parse new frame from input-buffer (populated by the recv() socket function or similar). Returns frame type (enum: TEXT_FRAME, BINARY_FRAME, ...), if the buffer holds incomplete frame INCOMPLETE_FRAME value is returned.
 
+Limitations
+---------
+**makeFrame()** handles messages shorter than 2^32 bytes.
+
 TODO
 ---------
 - Demo application with sockets and buffers.
