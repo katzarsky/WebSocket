@@ -223,13 +223,13 @@ WebSocketFrameType WebSocket::getFrame(unsigned char* in_buffer, int in_length, 
 	}
 	else if(length_field == 127) { //msglen is 64bit!
 		payload_length = (
-			(in_buffer[2]) << 56) | 
-			(in_buffer[3]) << 48) | 
-			(in_buffer[4]) << 40) | 
-			(in_buffer[5]) << 32) | 
-			(in_buffer[6]) << 24) | 
-			(in_buffer[7]) << 16) | 
-			(in_buffer[8]) << 8) | 
+			(in_buffer[2] << 56) | 
+			(in_buffer[3] << 48) | 
+			(in_buffer[4] << 40) | 
+			(in_buffer[5] << 32) | 
+			(in_buffer[6] << 24) | 
+			(in_buffer[7] << 16) | 
+			(in_buffer[8] << 8) | 
 			(in_buffer[9])
 		); 
 		pos += 8;
