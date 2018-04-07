@@ -1,6 +1,6 @@
 // WebSocket, v1.00 2012-09-13
 //
-// Description: WebSocket FRC6544 codec, written in C++.
+// Description: WebSocket RFC6544 codec, written in C++.
 // Homepage: http://katzarsky.github.com/WebSocket
 // Author: katzarsky@gmail.com
 
