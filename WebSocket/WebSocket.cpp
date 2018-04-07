@@ -1,6 +1,6 @@
 // WebSocket, v1.00 2012-09-13
 //
-// Description: WebSocket FRC6544 codec, written in C++.
+// Description: WebSocket RFC6544 codec, written in C++.
 // Homepage: http://katzarsky.github.com/WebSocket
 // Author: katzarsky@gmail.com
 
@@ -214,13 +214,27 @@ WebSocketFrameType WebSocket::getFrame(unsigned char* in_buffer, int in_length, 
 		payload_length = length_field;
 	}
 	else if(length_field == 126) { //msglen is 16bit!
-		payload_length = in_buffer[2] + (in_buffer[3]<<8);
+		//payload_length = in_buffer[2] + (in_buffer[3]<<8);
+		payload_length = (
+			(in_buffer[2] << 8) | 
+			(in_buffer[3])
+		);
 		pos += 2;
 	}
 	else if(length_field == 127) { //msglen is 64bit!
-		payload_length = in_buffer[2] + (in_buffer[3]<<8); 
+		payload_length = (
+			(in_buffer[2]) << 56) | 
+			(in_buffer[3]) << 48) | 
+			(in_buffer[4]) << 40) | 
+			(in_buffer[5]) << 32) | 
+			(in_buffer[6]) << 24) | 
+			(in_buffer[7]) << 16) | 
+			(in_buffer[8]) << 8) | 
+			(in_buffer[9])
+		); 
 		pos += 8;
 	}
+		
 	//printf("PAYLOAD_LEN: %08x\n", payload_length);
 	if(in_length < payload_length+pos) {
 		return INCOMPLETE_FRAME;
