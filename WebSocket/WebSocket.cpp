@@ -195,7 +195,7 @@ int WebSocket::makeFrame(WebSocketFrameType frame_type, unsigned char* msg, int 
 WebSocketFrameType WebSocket::getFrame(unsigned char* in_buffer, int in_length, unsigned char* out_buffer, int out_size, int* out_length)
 {
 	//printf("getTextFrame()\n");
-	if(in_length < 3) return INCOMPLETE_FRAME;
+	if(in_length < 2) return INCOMPLETE_FRAME;
 
 	unsigned char msg_opcode = in_buffer[0] & 0x0F;
 	unsigned char msg_fin = (in_buffer[0] >> 7) & 0x01;
