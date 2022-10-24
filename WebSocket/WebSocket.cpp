@@ -236,7 +236,7 @@ WebSocketFrameType WebSocket::getFrame(unsigned char* in_buffer, int in_length, 
 	}
 		
 	//printf("PAYLOAD_LEN: %08x\n", payload_length);
-	if(in_length < payload_length+pos) {
+	if(in_length < payload_length+pos+(msg_masked ? 4 : 0)) {
 		return INCOMPLETE_FRAME;
 	}
 
