@@ -94,17 +94,15 @@ vector<string> WebSocket::explode(
 	{
 		end = theString.find( theDelimiter, start );
 
-		// If at end, use length=maxLength.  Else use length=end-start.
-		length = (end == string::npos) ? string::npos : end - start;
+		// If at end, use length=size-start   Else use length=end-start.
+		length = (end == string::npos) ? theString.size() - start : end - start;
 
 		if (theIncludeEmptyStrings
-			|| (   ( length > 0 ) /* At end, end == length == string::npos */
+			|| (   ( length > 0 )
             && ( start  < theString.size() ) ) )
 		theStringVector.push_back( theString.substr( start, length ) );
 
-		// If at end, use start=maxSize.  Else use start=end+delimiter.
-		start = (   ( end > (string::npos - theDelimiter.size()) )
-              ?  string::npos  :  end + theDelimiter.size()     );
+		start = end + theDelimiter.size();
 	}
 	return theStringVector;
 }
